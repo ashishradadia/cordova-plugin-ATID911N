@@ -113,9 +113,9 @@ atid.rfid {
 
 Methods can be roughly categorized into four sections:
 
-lifecycle (wakeup, sleep, deinitialize)
-setters & getters
-read/write
+lifecycle (wakeup, sleep, deinitialize),
+setters & getters,
+read/write,
 events
 
 ####RFID: 
