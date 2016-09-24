@@ -1,7 +1,7 @@
 # cordova-plugin-ATID911N
-RFID and barcode scanning plugin for the ATID 911n
+Phonegap/Cordova based RFID and barcode scanning plugin for the ATID 911n
 
-#Currently supported methods:
+## Methods:
 
 ```
 atid.general {
@@ -109,11 +109,16 @@ atid.rfid {
 }
 
 ```
-#Notes
+###Notes
 
-Methods can be roughly categorized into four sections: lifecycle (wakeup, sleep, deinitialize), setters & getters, read/write, and events.
+Methods can be roughly categorized into four sections:
 
-RFID: 
+lifecycle (wakeup, sleep, deinitialize)
+setters & getters
+read/write
+events
+
+####RFID: 
 
 Use readTagSingle/readTagContinous to grap the rfid EPC and RSSI.
 
@@ -139,7 +144,7 @@ start_writeTagMemory
 }
 ```
 
-#Methods currently tested:
+##Methods currently tested:
 
 ```
 atid.general {
@@ -197,7 +202,7 @@ Lifecycle functions should be good to go, just be sure to hook it to the corresp
 
 There's currently no setters and getters for the barcode scanner, so let me know if more customization is needed.
 
-#Example Use
+##Example Use
 ```
 $(document).on('deviceready', function(){
 
