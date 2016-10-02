@@ -79,6 +79,7 @@ public class Atid extends CordovaPlugin {
                 new View.OnKeyListener(){
                     @Override
                     public boolean onKey(View view, int keyCode, KeyEvent event){
+                        //boolean val = super.onKey(view, keyCode, event);
                         return doKey(view, keyCode, event);
                     }
                 }
@@ -120,15 +121,17 @@ public class Atid extends CordovaPlugin {
             PluginResult result = new PluginResult(PluginResult.Status.OK, new JSONObject(str));
             result.setKeepCallback(true);
             this.keydown_callback.sendPluginResult(result);
-            return true;
+            
         } catch(Exception e)
         {
             e.printStackTrace();
             PluginResult result = new PluginResult(PluginResult.Status.ERROR, "Error in handling key event");
             result.setKeepCallback(true);
             this.keydown_callback.sendPluginResult(result);
-            return false;
+            
         }
+
+        return false;
     }
 
     private boolean KeyUp(int keyCode, KeyEvent event){
@@ -147,15 +150,17 @@ public class Atid extends CordovaPlugin {
             PluginResult result = new PluginResult(PluginResult.Status.OK, new JSONObject(str));
             result.setKeepCallback(true);
             this.keyup_callback.sendPluginResult(result);
-            return true;
+            
         } catch(Exception e)
         {
             e.printStackTrace();
             PluginResult result = new PluginResult(PluginResult.Status.ERROR, "Error in handling key event");
             result.setKeepCallback(true);
             this.keyup_callback.sendPluginResult(result);
-            return false;
+            
         }
+
+        return false;
 
     }
 
