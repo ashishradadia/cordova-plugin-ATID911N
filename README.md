@@ -1,5 +1,7 @@
 # cordova-plugin-ATID911N
 Phonegap/Cordova based RFID and barcode scanning plugin for the ATID 911n
+## Installing:
+cordova plugin add atid-barcode-rfid
 
 ## Methods:
 
