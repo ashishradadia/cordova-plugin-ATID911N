@@ -104,8 +104,8 @@ public boolean execute(String action, JSONArray args, CallbackContext callbackCo
     // getters and setters //
     
     else if (action.equals("getActionState")){
-    	callbackContext.success((mReader.getAction()) + "");
-    	return true;
+        callbackContext.success((mReader.getAction()) + "");
+        return true;
     }
     else if (action.equals("getPowerRange")){
         Log.d(TAG, "++Get Power Range");
@@ -235,12 +235,24 @@ public boolean execute(String action, JSONArray args, CallbackContext callbackCo
     }
     else if (action.equals("stop_read"))
     {
-        stopAction(callbackContext);
+        final CallbackContext myCallbackContext = callbackContext;
+        cordova.getThreadPool().execute(new Runnable() {
+            public void run() {
+                stopAction(myCallbackContext);
+            }
+        });
+        
         return true;
     }
     else if (action.equals("isStopped"))
     {
-        callbackContext.success((mReader.getAction() == ActionState.Stop) + "");
+        final CallbackContext myCallbackContext = callbackContext;
+        cordova.getThreadPool().execute(new Runnable() {
+            public void run() {
+                myCallbackContext.success((mReader.getAction() == ActionState.Stop) + "");
+            }
+        });
+        
         return true;
     }
 
@@ -355,74 +367,74 @@ protected void startAction(TagType tagType, boolean isContinuous, CallbackContex
 }
 
 protected void startAction(TagType tagType, JSONObject params, boolean isRead, CallbackContext callbackContext) {
-	ResultCode res;
+    ResultCode res;
     BankType bank;
     int offset;
     int length;
     String data;
     String password;
 
-	// TODO: set up logic for multiple banktype selection
-	try {
+    // TODO: set up logic for multiple banktype selection
+    try {
         bank = params.isNull("bankType") ? BankType.EPC : params.getString("bankType").equalsIgnoreCase("EPC") ? BankType.EPC : null;
-		offset = params.isNull("offset") ? 2 :  params.getInt("offset");
-		length = params.isNull("length") ? 2 : params.getInt("length");
-		password =  params.isNull("password") ? "" : params.getString("password");
+        offset = params.isNull("offset") ? 2 :  params.getInt("offset");
+        length = params.isNull("length") ? 2 : params.getInt("length");
+        password =  params.isNull("password") ? "" : params.getString("password");
         data =  params.isNull("data") ? "" : params.getString("data");
         
-	} catch(JSONException e)
-	{
-		e.printStackTrace();
-		callbackContext.error("Failed to read/write to memory, invalid JSON error.");
-		return;
-	}
+    } catch(JSONException e)
+    {
+        e.printStackTrace();
+        callbackContext.error("Failed to read/write to memory, invalid JSON error.");
+        return;
+    }
 
-	switch (tagType) {
-		case Tag6C:
-			//bank = getBank();
-			if (isRead){
-				if ((res = mReader.readMemory6c(bank, offset, length, password)) != ResultCode.NoError) {
-					Log.e(TAG,
-							String.format(
-									"ERROR. startAction() - Failed to read memory 6C tag [%s]",
-									res));
-					
-					callbackContext.error(String.format(
-									"ERROR. startAction() - Failed to read memory 6C tag [%s]",
-									res));
-					return;
-				}
+    switch (tagType) {
+        case Tag6C:
+            //bank = getBank();
+            if (isRead){
+                if ((res = mReader.readMemory6c(bank, offset, length, password)) != ResultCode.NoError) {
+                    Log.e(TAG,
+                            String.format(
+                                    "ERROR. startAction() - Failed to read memory 6C tag [%s]",
+                                    res));
+                    
+                    callbackContext.error(String.format(
+                                    "ERROR. startAction() - Failed to read memory 6C tag [%s]",
+                                    res));
+                    return;
+                }
 
-				callbackContext.success("successfully read memory : " + res);
-			}
-			else {
-				if ((res = mReader.writeMemory6c(bank, offset, data, password)) != ResultCode.NoError) {
+                callbackContext.success("successfully read memory : " + res);
+            }
+            else {
+                if ((res = mReader.writeMemory6c(bank, offset, data, password)) != ResultCode.NoError) {
                     Log.e(TAG,
                             String.format(
                                     "ERROR. startAction() - Failed to write memory 6C tag [%s]",
-									res));
-					
-					callbackContext.error(String.format(
-									"ERROR. startAction() - Failed to write memory 6C tag [%s]",
-									res));
-					return;
-				}
-				callbackContext.success("successfully wrote to memory : " + res);
-			}
-			break;
-		case Tag6B:
-			if ((res = mReader.readMemory6b(offset, length)) != ResultCode.NoError) {
-				Log.e(TAG,
-						String.format(
-								"ERROR. startAction() - Failed to read memory 6B tag [%s]",
-								res));
-				
-				return;
-			}
-			break;
-		}
-		
-		Log.i(TAG, "INFO. startAction()");
+                                    res));
+                    
+                    callbackContext.error(String.format(
+                                    "ERROR. startAction() - Failed to write memory 6C tag [%s]",
+                                    res));
+                    return;
+                }
+                callbackContext.success("successfully wrote to memory : " + res);
+            }
+            break;
+        case Tag6B:
+            if ((res = mReader.readMemory6b(offset, length)) != ResultCode.NoError) {
+                Log.e(TAG,
+                        String.format(
+                                "ERROR. startAction() - Failed to read memory 6B tag [%s]",
+                                res));
+                
+                return;
+            }
+            break;
+        }
+        
+        Log.i(TAG, "INFO. startAction()");
 }
 
 protected void stopAction(CallbackContext callbackContext) {
