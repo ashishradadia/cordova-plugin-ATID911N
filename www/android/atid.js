@@ -4,12 +4,12 @@ var cordova = require('cordova'),
 module.exports =  {
 	scanner_handle_keycode : 2,
 	onKeyUp : function(successCallback, errorCallback){
-		exec(successCallback, errorCallback, "Atid", 'register_keyUp', []);
+		return exec(successCallback, errorCallback, "Atid", 'register_keyUp', []);
 	},
 	onKeyDown : function(successCallback, errorCallback){
-		exec(successCallback, errorCallback, "Atid", 'register_keyDown', []);
+		return exec(successCallback, errorCallback, "Atid", 'register_keyDown', []);
 	},
 	playSound : function(soundName, successCallback, errorCallback){
-		exec(successCallback, errorCallback, "Atid", 'playSound', [soundName]);
+		return exec(successCallback, errorCallback, "Atid", 'playSound', [soundName]);
 	}
 }
