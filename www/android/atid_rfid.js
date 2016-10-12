@@ -2,6 +2,9 @@ var cordova = require('cordova'),
     exec = require('cordova/exec');
 
 module.exports =  {
+	initialize : function(successCallback, errorCallback){
+		return exec(successCallback, errorCallback, "Rfid", 'initialize', []);
+	},
 	deinitalize : function(successCallback, errorCallback){
 		return exec(successCallback, errorCallback, "Rfid", 'deinitalize', []);
 	},
@@ -10,6 +13,12 @@ module.exports =  {
 	},
 	sleep : function(successCallback, errorCallback){
 		return exec(successCallback, errorCallback, "Rfid", 'sleep', []);
+	},
+	forceWake : function(successCallback, errorCallback){
+		return exec(successCallback, errorCallback, "Rfid", 'forceWake', []);
+	},
+	forceSleep : function(successCallback, errorCallback){
+		return exec(successCallback, errorCallback, "Rfid", 'forceSleep', []);
 	},
 	pause_scanner : function(successCallback, errorCallback){
 		return exec(successCallback, errorCallback, "Rfid", 'pause_scanner', []);

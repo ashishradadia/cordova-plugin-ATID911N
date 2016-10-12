@@ -69,8 +69,18 @@ public boolean execute(String action, JSONArray args, CallbackContext callbackCo
     result.setKeepCallback(true);
     
     // lifecycle functions //
+    if (action.equals("initialize")){
+        if ((mReader = ATRfidManager.getInstance()) == null) {
+            Log.e(TAG, "Failure to initialize RFID device. Aborting...");
+            callbackContext.error("Failure to initialize RFID device");
+            return true;
+        }
 
-    if (action.equals("deinitalize")){
+        mReader.wakeUp();
+        callbackContext.success("successfully initialized RFID device");
+        return true;
+    }
+    else if (action.equals("deinitalize")){
         this.deinitalize();
         return true;
     }
@@ -79,6 +89,8 @@ public boolean execute(String action, JSONArray args, CallbackContext callbackCo
 
         if(mReader != null)
             ATRfidManager.wakeUp();
+
+        callbackContext.success("Called wakeUp function");
         return true;
     }
     else if (action.equals("sleep")){
@@ -86,6 +98,26 @@ public boolean execute(String action, JSONArray args, CallbackContext callbackCo
         if(mReader != null) {
             ATRfidManager.sleep();
         }
+
+        callbackContext.success("Called sleep function");
+        return true;
+    }
+    else if (action.equals("forceSleep")){
+        Log.d(TAG, "+- force sleep scanner");
+        if(mReader != null) {
+            mReader.sleep();
+        }
+
+        callbackContext.success("Called sleep function");
+        return true;
+    }
+    else if (action.equals("forceWake")){
+        Log.d(TAG, "+- force wake scanner");
+        if(mReader != null) {
+            mReader.wakeUp();
+        }
+
+        callbackContext.success("Called wakeUp function");
         return true;
     }
     else if (action.equals("pause_scanner")){
