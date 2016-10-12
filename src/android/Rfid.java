@@ -76,7 +76,7 @@ public boolean execute(String action, JSONArray args, CallbackContext callbackCo
             return true;
         }
 
-        mReader.wakeUp();
+        ATRfidManager.wakeUp();
         callbackContext.success("successfully initialized RFID device");
         return true;
     }
