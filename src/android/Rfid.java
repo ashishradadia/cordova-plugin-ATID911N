@@ -105,7 +105,7 @@ public boolean execute(String action, JSONArray args, CallbackContext callbackCo
     else if (action.equals("forceSleep")){
         Log.d(TAG, "+- force sleep scanner");
         if(mReader != null) {
-            mReader.sleep();
+            mReader.disconnect();
         }
 
         callbackContext.success("Called sleep function");
@@ -114,10 +114,16 @@ public boolean execute(String action, JSONArray args, CallbackContext callbackCo
     else if (action.equals("forceWake")){
         Log.d(TAG, "+- force wake scanner");
         if(mReader != null) {
-            mReader.wakeUp();
+            if(!mReader.connect()) {
+                Log.e(TAG, "ERROR. wakeUp() - Failed to connect rfid reader");
+                callbackContext.error("ERROR. wakeUp() - Failed to connect rfid reader");
+            } else {
+                Log.i(TAG, "INFO. wakeUp()");
+                callbackContext.success("Called wakeUp function");
+            }
         }
 
-        callbackContext.success("Called wakeUp function");
+        
         return true;
     }
     else if (action.equals("pause_scanner")){
