@@ -63,7 +63,7 @@ module.exports =  {
 		return exec(successCallback, errorCallback, "Rfid", 'start_readSingle', [new_thread]);
 	},
 	start_readTagContinuous :  function(successCallback, errorCallback, new_thread = false){
-		return exec(successCallback, errorCallback, "Rfid", 'start_readContinuous', []);
+		return exec(successCallback, errorCallback, "Rfid", 'start_readContinuous', [new_thread]);
 	},
 	start_readTagMemory : function(args, successCallback, errorCallback){
 		return exec(successCallback, errorCallback, "Rfid", 'start_readMemory', [args]);
