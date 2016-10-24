@@ -597,7 +597,7 @@ public void onReaderStateChanged(ATRfidReader reader, ConnectionState state) {
         return;
     
     try {
-        String str = (String) state;
+        String str = state + "";
         PluginResult result = new PluginResult(PluginResult.Status.OK, str);
         result.setKeepCallback(true);
         this.onReaderStateChanged_callback.sendPluginResult(result);
