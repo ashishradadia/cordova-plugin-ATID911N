@@ -58,6 +58,7 @@ private CallbackContext keyup_callback = null;
 private CallbackContext keydown_callback = null;
 private CallbackContext onReaderReadTag_callback = null;
 private CallbackContext onReaderResult_callback = null;
+private CallbackContext onReaderStateChanged_callback = null;
 private View currentView = null;
 
 
@@ -253,12 +254,33 @@ public boolean execute(String action, JSONArray args, CallbackContext callbackCo
 
     else if (action.equals("start_readContinuous"))
     {
-        startAction(TagType.Tag6C, true, callbackContext);
+        if (!args.getBoolean(0))){
+            startAction(TagType.Tag6C, true, callbackContext);
+        }
+        else{
+            Log.d(TAG, "Starting read continuous on new thread");
+            cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    startAction(TagType.Tag6C, true, callbackContext);
+                }
+            });
+        }
         return true;
     }
     else if (action.equals("start_readSingle"))
     {
-        startAction(TagType.Tag6C, false, callbackContext);
+        if (!args.getBoolean(0))){
+            startAction(TagType.Tag6C, false, callbackContext);
+        }
+        else{
+            Log.d(TAG, "Starting read single on new thread");
+            cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    startAction(TagType.Tag6C, false, callbackContext);
+                }
+            });
+        }
+        
         return true;
     }
     else if (action.equals("start_readMemory"))
@@ -312,6 +334,10 @@ public boolean execute(String action, JSONArray args, CallbackContext callbackCo
     }
     else if(action.equalsIgnoreCase("onReaderResult")){
             this.onReaderResult_callback = callbackContext;
+            return true;
+    }
+    else if(action.equalsIgnoreCase("onReaderStateChanged")){
+            this.onReaderStateChanged_callback = callbackContext;
             return true;
     }
     return false;
@@ -567,6 +593,23 @@ public void onReaderResult(ATRfidReader reader, ResultCode code,
 @Override
 public void onReaderStateChanged(ATRfidReader reader, ConnectionState state) {
     Log.i(TAG, String.format("EVENT. onReaderStateChanged(%s)", state));
+    if (this.onReaderStateChanged_callback == null)
+        return;
+    
+    try {
+        String str = (String) state;
+        PluginResult result = new PluginResult(PluginResult.Status.OK, str);
+        result.setKeepCallback(true);
+        this.onReaderStateChanged_callback.sendPluginResult(result);
+        return;
+    } catch(Exception e)
+    {
+        e.printStackTrace();
+        PluginResult result = new PluginResult(PluginResult.Status.ERROR, "Error in handling onReaderStateChanged event");
+        result.setKeepCallback(true);
+        this.onReaderStateChanged_callback.sendPluginResult(result);
+        return;
+    }
 }
 
 

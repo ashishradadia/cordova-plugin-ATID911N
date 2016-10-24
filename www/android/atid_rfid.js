@@ -56,10 +56,13 @@ module.exports =  {
 	onReaderResult :  function(successCallback, errorCallback){
 		return exec(successCallback, errorCallback, "Rfid", 'onReaderResult', []);
 	},
-	start_readTagSingle :  function(successCallback, errorCallback){
-		return exec(successCallback, errorCallback, "Rfid", 'start_readSingle', []);
+	onReaderStateChanged : function(successCallback, errorCallback){
+		return exec(successCallback, errorCallback, "Rfid", 'onReaderStateChanged', []);
 	},
-	start_readTagContinuous :  function(successCallback, errorCallback){
+	start_readTagSingle :  function(successCallback, errorCallback, new_thread = false){
+		return exec(successCallback, errorCallback, "Rfid", 'start_readSingle', [new_thread]);
+	},
+	start_readTagContinuous :  function(successCallback, errorCallback, new_thread = false){
 		return exec(successCallback, errorCallback, "Rfid", 'start_readContinuous', []);
 	},
 	start_readTagMemory : function(args, successCallback, errorCallback){
