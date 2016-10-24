@@ -532,7 +532,7 @@ protected void stopAction(CallbackContext callbackContext) {
 
 @Override
 public void onReaderActionChanged(ATRfidReader reader, ActionState action) {
-
+    Log.i(TAG, String.format("EVENT. onReaderActionchanged(%s)", action));
     if (action == ActionState.Stop) {
       //  adpTags.shutDown();
     } else {
@@ -558,8 +558,6 @@ public void onReaderActionChanged(ATRfidReader reader, ActionState action) {
     }
 
     //enableWidgets(true);
-
-    Log.i(TAG, String.format("EVENT. onReaderActionchanged(%s)", action));
 }
 
 @Override
