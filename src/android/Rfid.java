@@ -59,6 +59,7 @@ private CallbackContext keydown_callback = null;
 private CallbackContext onReaderReadTag_callback = null;
 private CallbackContext onReaderResult_callback = null;
 private CallbackContext onReaderStateChanged_callback = null;
+private CallbackContext onReaderActionChanged_callback = null;
 private View currentView = null;
 
 
@@ -342,6 +343,10 @@ public boolean execute(String action, JSONArray args, CallbackContext callbackCo
             this.onReaderStateChanged_callback = callbackContext;
             return true;
     }
+    else if(action.equalsIgnoreCase("onReaderActionChanged")){
+            this.onReaderActionChanged_callback = callbackContext;
+            return true;
+    }
     return false;
 }
 
@@ -532,6 +537,24 @@ public void onReaderActionChanged(ATRfidReader reader, ActionState action) {
       //  adpTags.shutDown();
     } else {
         //adpTags.start();
+    }
+
+    if (this.onReaderActionChanged_callback == null)
+        return;
+    
+    try {
+        String str = action + "";
+        PluginResult result = new PluginResult(PluginResult.Status.OK, str);
+        result.setKeepCallback(true);
+        this.onReaderActionChanged_callback.sendPluginResult(result);
+        return;
+    } catch(Exception e)
+    {
+        e.printStackTrace();
+        PluginResult result = new PluginResult(PluginResult.Status.ERROR, "Error in handling onReaderActionChanged event");
+        result.setKeepCallback(true);
+        this.onReaderActionChanged_callback.sendPluginResult(result);
+        return;
     }
 
     //enableWidgets(true);

@@ -59,6 +59,9 @@ module.exports =  {
 	onReaderStateChanged : function(successCallback, errorCallback){
 		return exec(successCallback, errorCallback, "Rfid", 'onReaderStateChanged', []);
 	},
+	onReaderActionChanged : function(successCallback, errorCallback){
+		return exec(successCallback, errorCallback, "Rfid", 'onReaderActionChanged', []);
+	},
 	start_readTagSingle :  function(successCallback, errorCallback, new_thread){
 		return exec(successCallback, errorCallback, "Rfid", 'start_readSingle', [new_thread]);
 	},
