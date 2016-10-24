@@ -258,10 +258,11 @@ public boolean execute(String action, JSONArray args, CallbackContext callbackCo
             startAction(TagType.Tag6C, true, callbackContext);
         }
         else{
+            final CallbackContext myCallbackContext = callbackContext;
             Log.d(TAG, "Starting read continuous on new thread");
             cordova.getThreadPool().execute(new Runnable() {
                 public void run() {
-                    startAction(TagType.Tag6C, true, callbackContext);
+                    startAction(TagType.Tag6C, true, myCallbackContext);
                 }
             });
         }
@@ -273,10 +274,11 @@ public boolean execute(String action, JSONArray args, CallbackContext callbackCo
             startAction(TagType.Tag6C, false, callbackContext);
         }
         else{
+            final CallbackContext myCallbackContext = callbackContext;
             Log.d(TAG, "Starting read single on new thread");
             cordova.getThreadPool().execute(new Runnable() {
                 public void run() {
-                    startAction(TagType.Tag6C, false, callbackContext);
+                    startAction(TagType.Tag6C, false, myCallbackContext);
                 }
             });
         }
