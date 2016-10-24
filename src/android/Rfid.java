@@ -254,7 +254,7 @@ public boolean execute(String action, JSONArray args, CallbackContext callbackCo
 
     else if (action.equals("start_readContinuous"))
     {
-        if (!args.getBoolean(0))){
+        if (!args.getBoolean(0)){
             startAction(TagType.Tag6C, true, callbackContext);
         }
         else{
@@ -269,7 +269,7 @@ public boolean execute(String action, JSONArray args, CallbackContext callbackCo
     }
     else if (action.equals("start_readSingle"))
     {
-        if (!args.getBoolean(0))){
+        if (!args.getBoolean(0)){
             startAction(TagType.Tag6C, false, callbackContext);
         }
         else{
