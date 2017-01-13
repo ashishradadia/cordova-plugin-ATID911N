@@ -561,7 +561,7 @@ public void onReaderActionChanged(ATRfidReader reader, ActionState action) {
 }
 
 @Override
-public void onReaderReadTag(ATRfidReader reader, String tag, float rssi) {
+public void onReaderReadTag(ATRfidReader reader, String tag, float rssi, float phase) {
 
     //adpTags.addItem(tag, rssi);
     //txtCount.setText(String.format("%d", adpTags.getCount()));
@@ -573,7 +573,7 @@ public void onReaderReadTag(ATRfidReader reader, String tag, float rssi) {
         return;
     
     try {
-        String str = "{\'tag\':\'" + tag + "\' , \'rssi\': \'" + rssi + "\' }";
+        String str = "{\'tag\':\'" + tag + "\' , \'rssi\': \'" + rssi + "\' , \'phase\': \'" + phase + "\'}";
         PluginResult result = new PluginResult(PluginResult.Status.OK, new JSONObject(str));
         result.setKeepCallback(true);
         this.onReaderReadTag_callback.sendPluginResult(result);
@@ -590,7 +590,7 @@ public void onReaderReadTag(ATRfidReader reader, String tag, float rssi) {
 
 @Override
 public void onReaderResult(ATRfidReader reader, ResultCode code,
-        ActionState action, String epc, String data) {
+        ActionState action, String epc, String data, float rssi, float phase) {
     Log.i(TAG, String.format("EVENT. onReaderResult(%s, %s, [%s], [%s]",
             code, action, epc, data));
 
