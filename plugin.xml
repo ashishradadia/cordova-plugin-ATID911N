@@ -53,6 +53,8 @@
         <lib-file src="src/android/libs/atid.system.ctrl.jar" />
         <lib-file src="src/android/libs/atid.system.device.jar" />
         <lib-file src="src/android/libs/atid.util.jar" />
+		<lib-file src="src/android/libs/atid.system.jcomm.jar" />
+
 
         <source-file src="src/android/libs/build-extras.gradle" target-dir="src/.." />
 
