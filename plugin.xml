@@ -53,13 +53,20 @@
         <lib-file src="src/android/libs/atid.system.ctrl.jar" />
         <lib-file src="src/android/libs/atid.system.device.jar" />
         <lib-file src="src/android/libs/atid.util.jar" />
-		<lib-file src="src/android/libs/atid.system.jcomm.jar" />
+	<lib-file src="src/android/libs/atid.system.jcomm.jar" />
 
 
         <source-file src="src/android/libs/build-extras.gradle" target-dir="src/.." />
 
         <source-file src="src/android/libs/armeabi/libserial_port.so" target-dir="libs/armeabi" />
         <source-file src="src/android/libs/armeabi/libsystem_control.so" target-dir="libs/armeabi" />
+<source-file src="src/android/libs/armeabi/barcodereader.so" target-dir="libs/armeabi" />
+<source-file src="src/android/libs/armeabi/barcodereader43.so" target-dir="libs/armeabi" />
+<source-file src="src/android/libs/armeabi/barcodereader44.so" target-dir="libs/armeabi" />
+<source-file src="src/android/libs/armeabi/libIAL.so" target-dir="libs/armeabi" />
+<source-file src="src/android/libs/armeabi/libjserialport.so" target-dir="libs/armeabi" />
+<source-file src="src/android/libs/armeabi/libSDL.so" target-dir="libs/armeabi" />
+
 
         <resource-file src="src/android/res/raw/fail.wav" target="res/raw/fail.wav" />
         <resource-file src="src/android/res/raw/success.wav" target="res/raw/success.wav" />
