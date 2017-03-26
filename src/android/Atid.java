@@ -75,15 +75,15 @@ public class Atid extends CordovaPlugin {
         mBeep = mSound.load(ctx, beepResource, 1);
 
         this.currentView = webView.getView();
-        // this.currentView.setOnKeyListener(
-                // new View.OnKeyListener(){
-                    // @Override
-                    // public boolean onKey(View view, int keyCode, KeyEvent event){
+        this.currentView.setOnKeyListener(
+                new View.OnKeyListener(){
+                    @Override
+                    public boolean onKey(View view, int keyCode, KeyEvent event){
                         //boolean val = super.onKey(view, keyCode, event);
-                        // return doKey(view, keyCode, event);
-                    // }
-                // }
-        // );
+                        return doKey(view, keyCode, event);
+                    }
+                }
+        );
 
     }
 
