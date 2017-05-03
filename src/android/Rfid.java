@@ -187,7 +187,7 @@ public boolean execute(String action, JSONArray args, CallbackContext callbackCo
         Log.d(TAG, "++set power level");
         try {
             mReader.setPower(args.getInt(0));
-            callbackContext.success("successfully set power level");
+            callbackContext.success("successfully set power level to "+args.getInt(0));
         } catch (ATRfidReaderException e) {
             Log.e(TAG, String.format(
                     "ERROR. saveOption() - Failed to set power level [%s]",
