@@ -1,5 +1,14 @@
 # cordova-plugin-ATID911N
 Phonegap/Cordova based RFID and barcode scanning plugin for the ATID 911n
+
+Developed by Simplicity Solutions Group
+https://simplicitysolutionsgroup.com/
+
+## Questions?
+Content us at:
+dsledd@simplicitysolutionsgroup.com
+jfairfull@simplicitysolutionsgroup.com
+
 ## Installing:
 cordova plugin add atid-barcode-rfid
 
@@ -120,9 +129,15 @@ setters & getters,
 read/write,
 events
 
+When I was developing this plugin, the documentation for the device was pretty bare. The example android code that came with the SDK package wouldn't work without modification.
+
+The android SDK that is compiled with this plugin seems to be outdated and has an error in the rfid write functionality. For some reason it would only write a limited amount of data to the EPC. I had to implement a hacky solution to get it working by only writing four characters at a time and incrementing an offset.
+
+If anybody has a more up-to-date android SDK and has issue with the current plugin, please email it to me at dsledd@simplicitysolutionsgroup.com.
+
 ####RFID: 
 
-Use readTagSingle/readTagContinous to grap the rfid EPC and RSSI.
+Use readTagSingle/readTagContinous to grab the rfid EPC and RSSI.
 
 The difference between readTagSingle/Continuous vs readTagMemory is the latter allows the selection of specific words to be grabbed from the rfid chip based on the given json arguments; however keep in mind both readTagMemory/writeTagMemory don't natively grab the rssi value from its event listener.
 
@@ -145,64 +160,6 @@ start_writeTagMemory
   'data' : ''
 }
 ```
-
-##Methods currently tested:
-
-```
-atid.general {
-  scanner_handle_keycode : 2,
-	
-	onKeyUp : function(successCallback, errorCallback){
-		exec(successCallback, errorCallback, "Atid", 'register_keyUp', []);
-	},
-	onKeyDown : function(successCallback, errorCallback){
-		exec(successCallback, errorCallback, "Atid", 'register_keyDown', []);
-	},
-	playSound : function(soundName, successCallback, errorCallback){
-		exec(successCallback, errorCallback, "Atid", 'playSound', [soundName]);
-	}
-}
-
-atid.barcode {
-  startDecode : function(successCallback, errorCallback){
-		exec(successCallback, errorCallback, "Barcode", 'scanner_startDecode', []);
-	},
-	stopDecode : function(successCallback, errorCallback){
-		exec(successCallback, errorCallback, "Barcode", 'scanner_stopDecode', []);
-	},
-	isDecoding : function(successCallback, errorCallback){
-		exec(successCallback, errorCallback, "Barcode", 'scanner_isDecoding', []);
-	},
-	onDecode : function(successCallback, errorCallback){
-		exec(successCallback, errorCallback, "Barcode", 'register_decode', []);
-	}
-}
-
-atid.rfid {
-  onReaderReadTag : function(successCallback, errorCallback){
-      exec(successCallback, errorCallback, "Rfid", 'onReaderReadTag', []);
-  },
-  onReaderResult :  function(successCallback, errorCallback){
-      exec(successCallback, errorCallback, "Rfid", 'onReaderResult', []);
-  },
-  start_readTagSingle :  function(successCallback, errorCallback){
-      exec(successCallback, errorCallback, "Rfid", 'start_readSingle', []);
-  },
-  start_readTagContinuous :  function(successCallback, errorCallback){
-      exec(successCallback, errorCallback, "Rfid", 'start_readContinuous', []);
-  },
-  stop_scan :  function(successCallback, errorCallback){
-          exec(successCallback, errorCallback, "Rfid", 'stop_read', []);
-  },
-  isStopped :  function(successCallback, errorCallback){
-      exec(successCallback, errorCallback, "Rfid", 'isStopped', []);
-  }
-}
-```
-
-Lifecycle functions should be good to go, just be sure to hook it to the corresponding cordova lifecycle event. The setters/getters we may not need. The get/set power method for the rfid scanner may prove useful however.
-
-There's currently no setters and getters for the barcode scanner, so let me know if more customization is needed.
 
 ##Example Use
 ```
