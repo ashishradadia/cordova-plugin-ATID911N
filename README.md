@@ -6,7 +6,7 @@ Developed by Simplicity Solutions Group
 https://simplicitysolutionsgroup.com/
 
 ## Questions?
-Content us at:
+Contact us at:
 
 dsledd@simplicitysolutionsgroup.com
 
