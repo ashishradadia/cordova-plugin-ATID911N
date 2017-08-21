@@ -2,11 +2,14 @@
 Phonegap/Cordova based RFID and barcode scanning plugin for the ATID 911n
 
 Developed by Simplicity Solutions Group
+
 https://simplicitysolutionsgroup.com/
 
 ## Questions?
 Content us at:
+
 dsledd@simplicitysolutionsgroup.com
+
 jfairfull@simplicitysolutionsgroup.com
 
 ## Installing:
