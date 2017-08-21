@@ -120,7 +120,7 @@ atid.rfid {
 }
 
 ```
-###Notes
+## Notes
 
 Methods can be roughly categorized into four sections:
 
@@ -161,7 +161,7 @@ start_writeTagMemory
 }
 ```
 
-##Example Use
+## Example Use
 ```
 $(document).on('deviceready', function(){
 
